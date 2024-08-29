@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atreya Patel's Interactive Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        .game-container {
+            background-color: #e6f2ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bg-blue-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const SkillBar = ({ skill, level }) => (
+            <div className="mb-4">
+                <div className="flex items-center">
+                    <span className="w-24">{skill}</span>
+                    <div className="flex-1 bg-blue-200 rounded-full h-4">
+                        <div
+                            className="bg-blue-500 rounded-full h-4"
+                            style={{ width: `${level}%` }}
+                        ></div>
+                    </div>
+                    <span className="ml-2">{level}%</span>
+                </div>
+            </div>
+        );
+
+        const HobbyCard = ({ hobby, emoji }) => (
+            <div className="bg-white p-4 rounded-lg shadow-md text-center">
+                <span className="text-4xl">{emoji}</span>
+                <p className="mt-2">{hobby}</p>
+            </div>
+        );
+
+        const AchievementGame = () => {
+            const [score, setScore] = React.useState(0);
+            const [showQuiz, setShowQuiz] = React.useState(false);
+            const [quizCompleted, setQuizCompleted] = React.useState(false);
+
+            const incrementScore = () => setScore(score + 1);
+
+            const startQuiz = () => setShowQuiz(true);
+
+            const completeQuiz = () => {
+                setQuizCompleted(true);
+                incrementScore();
+            };
+
+            return (
+                <div className="game-container">
+                    <h3 className="text-xl font-bold mb-4">Achievement Unlocked Game</h3>
+                    <p>Score: {score}</p>
+                    {!showQuiz && (
+                        <button
+                            className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
+                            onClick={startQuiz}
+                        >
+                            Start Quiz
+                        </button>
+                    )}
+                    {showQuiz && !quizCompleted && (
+                        <div className="mt-4">
+                            <p>What does HTML stand for?</p>
+                            <button
+                                className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                                onClick={completeQuiz}
+                            >
+                                Submit Answer
+                            </button>
+                        </div>
+                    )}
+                    {quizCompleted && (
+                        <p className="mt-4">Congratulations! You've completed the quiz!</p>
+                    )}
+                </div>
+            );
+        };
+
+        const App = () => (
+            <div className="container mx-auto px-4 py-8">
+                <header className="text-center mb-8">
+                    <h1 className="text-4xl font-bold text-blue-800">Atreya Patel</h1>
+                    <p className="text-xl text-blue-600">IT Enthusiast | Hacker | Coder | Entrepreneur</p>
+                </header>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">About Me</h2>
+                    <p>
+                        Hi there! 👋 I'm Atreya Patel, a passionate IT enthusiast with a love for hacking and coding. 
+                        I'm always looking for new challenges and opportunities to grow in the tech world. 
+                        When I'm not immersed in the digital realm, you can find me on the cricket field, 
+                        scoring goals in football, or building amazing structures in Minecraft.
+                    </p>
+                </section>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Skills</h2>
+                    <SkillBar skill="Hacking" level={90} />
+                    <SkillBar skill="Coding" level={85} />
+                    <SkillBar skill="Entrepreneurship" level={80} />
+                </section>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Hobbies</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <HobbyCard hobby="Cricket" emoji="🏏" />
+                        <HobbyCard hobby="Football" emoji="⚽" />
+                        <HobbyCard hobby="Minecraft" emoji="🎮" />
+                    </div>
+                </section>
+
+                <section className="mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Goals</h2>
+                    <ul className="list-disc list-inside">
+                        <li>Achieve an award in hacking 🏆</li>
+                        <li>Pass my IGCSE exams with flying colors 📚</li>
+                        <li>Develop groundbreaking software solutions 💻</li>
+                    </ul>
+                </section>
+
+                <AchievementGame />
+            </div>
+        );
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
