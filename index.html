@@ -3,141 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atreya Patel's Interactive Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>Atreya Patel | Ethical Hacker & AI Developer</title>
     <style>
-        body {
-            background-color: #f0f8ff;
-            color: #333;
+        :root {
+            --navy: #0a192f;
+            --light-navy: #112240;
+            --lightest-navy: #233554;
+            --slate: #8892b0;
+            --light-slate: #a8b2d1;
+            --lightest-slate: #ccd6f6;
+            --white: #e6f1ff;
+            --green: #64ffda;
+            --blue-hover: #58a6ff;
         }
-        .game-container {
-            background-color: #e6f2ff;
-            border-radius: 10px;
-            padding: 20px;
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
+            background-color: var(--navy);
+            color: var(--slate);
+            line-height: 1.3;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 50px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--lightest-slate);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--blue-hover);
+        }
+        
+        h1, h2, h3 {
+            color: var(--lightest-slate);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .hero h1 {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .hero h2 {
+            font-size: 50px;
+            color: var(--slate);
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            max-width: 540px;
+            margin-bottom: 50px;
+        }
+        
+        .btn {
+            display: inline-block;
+            color: var(--green);
+            border: 1px solid var(--green);
+            padding: 15px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--blue-hover);
+            color: var(--white);
+        }
+        
+        section {
+            margin-bottom: 100px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 32px;
+            margin-right: 20px;
+        }
+        
+        .section-header::after {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 300px;
+            background-color: var(--lightest-navy);
+        }
+        
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-top: 20px;
+        }
+        
+        .skill-pill {
+            background-color: var(--light-navy);
+            color: var(--green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .skill-pill:hover {
+            background-color: var(--lightest-navy);
+        }
+        
+        .project {
+            position: relative;
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(12, 1fr);
+            align-items: center;
+        }
+        
+        .project-content {
+            position: relative;
+            grid-area: 1 / 1 / -1 / 7;
+            grid-column: 1 / 8;
+        }
+        
+        .project-image {
+            grid-area: 1 / 6 / -1 / -1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .project-content h3 {
+            margin: 10px 0 20px;
+            color: var(--lightest-slate);
+            font-size: 28px;
+        }
+        
+        .project-description {
+            position: relative;
+            z-index: 2;
+            padding: 25px;
+            border-radius: 4px;
+            background-color: var(--light-navy);
+            color: var(--light-slate);
+            font-size: 15px;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+        
+        .project-tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+            margin: 25px 0 10px;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .project-tech-list li {
+            margin: 0 20px 5px 0;
+            color: var(--slate);
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .experience-link {
+            color: var(--green);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .experience-link:hover {
+            color: var(--blue-hover);
         }
     </style>
 </head>
-<body class="bg-blue-100">
-    <div id="root"></div>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <script type="text/babel">
-        const SkillBar = ({ skill, level }) => (
-            <div className="mb-4">
-                <div className="flex items-center">
-                    <span className="w-24">{skill}</span>
-                    <div className="flex-1 bg-blue-200 rounded-full h-4">
-                        <div
-                            className="bg-blue-500 rounded-full h-4"
-                            style={{ width: `${level}%` }}
-                        ></div>
+    <main class="container">
+        <section class="hero">
+            <h1 class="fade-in">Atreya Patel</h1>
+            <h2 class="fade-in">I hack systems, build AI, and secure the future.</h2>
+            <p class="fade-in">I'm an ethical hacker and AI developer specializing in cybersecurity and machine learning. With <a href="#experience" class="experience-link">5 years of hacking and 4 in coding</a> experience, I'm focused on creating secure and intelligent systems.</p>
+            <a href="#contact" class="btn fade-in">Get In Touch</a>
+        </section>
+
+        <section id="about" class="fade-in">
+            <div class="section-header">
+                <h2>About Me</h2>
+            </div>
+            <p>Hello, I'm Atreya! I am an IT professional who loves ethical hacking, AI, and machine learning</p>
+            <p> I am excited to combine my skills in building smarter cybersecurity systems and making the online world safer.</p>
+            <p>Other than coding or testing systems' security, I love exploring more about AI and finding new ways to solve real-world problems.</p>
+        </section>
+
+        <section id="experience" class="fade-in">
+            <div class="section-header">
+                <h2>Experience</h2>
+            </div>
+            <p>With 5 years of experience in ethical hacking and 4 years in programming, I've developed a comprehensive skill set that spans cybersecurity, AI development, and software engineering. My expertise includes:</p>
+            <div class="skills-grid">
+                <span class="skill-pill">Ethical Hacking</span>
+                <span class="skill-pill">Machine Learning</span>
+                <span class="skill-pill">Python</span>
+                <span class="skill-pill">SQL</span>
+                <span class="skill-pill">JavaScript</span>
+                <span class="skill-pill">TypeScript</span>
+                <span class="skill-pill">React</span>
+                <span class="skill-pill">Storybook</span>
+                <span class="skill-pill">Network Security</span>
+                <span class="skill-pill">Penetration Testing</span>
+                <span class="skill-pill">AI Development</span>
+                <span class="skill-pill">Cryptography</span>
+            </div>
+        </section>
+
+        <section id="projects" class="fade-in">
+            <div class="section-header">
+                <h2>Featured Projects</h2>
+            </div>
+            <div class="project">
+                <div class="project-content">
+                    <h3>AI-Powered Intrusion Detection System</h3>
+                    <div class="project-description">
+                        <p>Developed an advanced intrusion detection system that uses machine learning algorithms to identify and respond to potential security threats in real-time. This project combines my expertise in ethical hacking and AI to create a more robust cybersecurity solution.</p>
                     </div>
-                    <span className="ml-2">{level}%</span>
+                    <ul class="project-tech-list">
+                        <li>Python</li>
+                        <li>TensorFlow</li>
+                        <li>Scikit-learn</li>
+                        <li>Network Protocols</li>
+                    </ul>
+                </div>
+                <div class="project-image">
+                    <img src="/api/placeholder/400/300" alt="AI-Powered Intrusion Detection System">
                 </div>
             </div>
-        );
+        </section>
 
-        const HobbyCard = ({ hobby, emoji }) => (
-            <div className="bg-white p-4 rounded-lg shadow-md text-center">
-                <span className="text-4xl">{emoji}</span>
-                <p className="mt-2">{hobby}</p>
+        <section id="contact" class="fade-in">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
             </div>
-        );
+            <p>I'm always excited to collaborate on innovative projects pushing cybersecurity and AI's boundaries. Whether you have a challenging problem or want to talk about tech, thanks for reading!</p>
+            <a href="mailto:atreya.patel@example.com" class="btn">Say Hello</a>
+        </section>
+    </main>
 
-        const AchievementGame = () => {
-            const [score, setScore] = React.useState(0);
-            const [showQuiz, setShowQuiz] = React.useState(false);
-            const [quizCompleted, setQuizCompleted] = React.useState(false);
-
-            const incrementScore = () => setScore(score + 1);
-
-            const startQuiz = () => setShowQuiz(true);
-
-            const completeQuiz = () => {
-                setQuizCompleted(true);
-                incrementScore();
-            };
-
-            return (
-                <div className="game-container">
-                    <h3 className="text-xl font-bold mb-4">Achievement Unlocked Game</h3>
-                    <p>Score: {score}</p>
-                    {!showQuiz && (
-                        <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-                            onClick={startQuiz}
-                        >
-                            Start Quiz
-                        </button>
-                    )}
-                    {showQuiz && !quizCompleted && (
-                        <div className="mt-4">
-                            <p>What does HTML stand for?</p>
-                            <button
-                                className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
-                                onClick={completeQuiz}
-                            >
-                                Submit Answer
-                            </button>
-                        </div>
-                    )}
-                    {quizCompleted && (
-                        <p className="mt-4">Congratulations! You've completed the quiz!</p>
-                    )}
-                </div>
-            );
+    <script>
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -100px 0px"
         };
 
-        const App = () => (
-            <div className="container mx-auto px-4 py-8">
-                <header className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-blue-800">Atreya Patel</h1>
-                    <p className="text-xl text-blue-600">IT Enthusiast | Hacker | Coder | Entrepreneur</p>
-                </header>
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
 
-                <section className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">About Me</h2>
-                    <p>
-                        Hi👋 I'm Atreya Patel, and I love IT and mainly like to do hacking and coding. 
-                        I'm always creating new tech and help the word! 
-                        When I'm not hacking online, you can find me playing crikcet, 
-                        playing football, or pvp in minecraft in Minecraft.
-                    </p>
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Skills</h2>
-                    <SkillBar skill="Hacking" level={90} />
-                    <SkillBar skill="Coding" level={85} />
-                    <SkillBar skill="Entrepreneurship" level={80} />
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Hobbies</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <HobbyCard hobby="Cricket" emoji="🏏" />
-                        <HobbyCard hobby="Football" emoji="⚽" />
-                        <HobbyCard hobby="Minecraft" emoji="🎮" />
-                    </div>
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Goals</h2>
-                    <ul className="list-disc list-inside">
-                        <li>Achieve an award in hacking 🏆</li>
-                        <li>Pass my IGCSE exams with flying colors 📚</li>
-                        <li>Develop groundbreaking software solutions 💻</li>
-                    </ul>
-                </section>
-
-                <AchievementGame />
-            </div>
-        );
-
-        ReactDOM.render(<App />, document.getElementById('root'));
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
     </script>
 </body>
 </html>
